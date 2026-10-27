@@ -1,0 +1,94 @@
+{
+  "sensors": {
+    "16855.27453475893": {
+      "active": true,
+      "address": "AA:BB:CC:00:11:22",
+      "alerts": {
+        "temperature": { "enabled": true, "max": 77, "min": 50 },
+        "humidity": { "enabled": true, "max": 60, "min": 30 }
+      },
+      "battery_voltage": 2.91,
+      "calibration": { "humidity": 0, "temperature": 0 },
+      "deviceId": "16855",
+      "id": "16855.27453475893",
+      "name": "Cave à vin",
+      "rssi": -71,
+      "tags": {},
+      "type": "HT.w"
+    },
+    "21422.4417761108": {
+      "active": true,
+      "address": "AA:BB:CC:00:11:33",
+      "alerts": {
+        "temperature": { "enabled": false, "max": 90, "min": 32 },
+        "humidity": { "enabled": false, "max": 80, "min": 20 }
+      },
+      "battery_voltage": 3.02,
+      "deviceId": "21422",
+      "id": "21422.4417761108",
+      "name": "Serre",
+      "rssi": -64,
+      "tags": {},
+      "type": "HTP.xw"
+    },
+    "9031.11223344": {
+      "active": true,
+      "address": "AA:BB:CC:00:11:44",
+      "battery_voltage": 2.74,
+      "deviceId": "9031",
+      "id": "9031.11223344",
+      "name": "Grenier",
+      "rssi": -82,
+      "tags": {},
+      "type": "HT1"
+    },
+    "777.000001": {
+      "active": false,
+      "deviceId": "777",
+      "id": "777.000001",
+      "name": "Old sensor",
+      "type": "HT1"
+    }
+  },
+  "gateways": {
+    "Maison": {
+      "last_alert": "2026-10-20T08:00:00.000Z",
+      "last_seen": "2026-10-27T09:55:00.000Z",
+      "message": null,
+      "name": "Maison",
+      "paired": "true",
+      "tags": {},
+      "version": "1.1.3(17)"
+    }
+  },
+  "samples": {
+    "16855.27453475893": [
+      {
+        "observed": "2026-10-27T09:59:00.000Z",
+        "temperature": 55.4,
+        "humidity": 68.2,
+        "dewpoint": 45.1,
+        "vpd": 0.42,
+        "altitude": 0
+      }
+    ],
+    "21422.4417761108": [
+      {
+        "observed": "2026-10-27T09:59:30.000Z",
+        "temperature": 71.6,
+        "humidity": 55,
+        "dewpoint": 54.5,
+        "barometric_pressure": 29.92,
+        "vpd": 1.18,
+        "altitude": 650
+      }
+    ],
+    "9031.11223344": [
+      {
+        "observed": "2026-10-27T09:58:00.000Z",
+        "temperature": 60.8,
+        "humidity": 48
+      }
+    ]
+  }
+}

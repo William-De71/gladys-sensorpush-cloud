@@ -1,0 +1,1525 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "SensorPush Cloud",
+  "description": {
+    "en": "SensorPush sensors via the official cloud API: temperature, humidity, pressure, alerts.",
+    "fr": "Capteurs SensorPush par l’API cloud officielle : température, humidité, pression, alertes.",
+    "de": "SensorPush-Sensoren über die offizielle Cloud-API: Temperatur, Feuchte, Luftdruck, Alarme.",
+    "es": "Sensores SensorPush por la API cloud oficial: temperatura, humedad, presión, alertas."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-sensorpush-cloud:0.1.0",
+  "gladys_version": ">=5.3.0",
+  "categories": ["environment", "climate"],
+  "keywords": [
+    "SensorPush",
+    "HT1",
+    "HT.w",
+    "HTP.xw",
+    "G1 WiFi Gateway",
+    "hygrometer",
+    "hygromètre",
+    "thermometer",
+    "thermomètre",
+    "humidité"
+  ],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-sensorpush-cloud/main/cover.jpg",
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "SensorPush account",
+        "fr": "Compte SensorPush",
+        "de": "SensorPush-Konto",
+        "es": "Cuenta SensorPush"
+      },
+      "description": {
+        "en": "Enter the e-mail address and the password of your SensorPush account. The integration signs in to the official Gateway Cloud API (api.sensorpush.com) and only reads: the samples travel through the SensorPush cloud, relayed by a SensorPush gateway (G1 WiFi Gateway). A new account must first log in once to the Gateway Cloud Dashboard and accept the API terms. Not affiliated with SensorPush.",
+        "fr": "Saisissez l’adresse e-mail et le mot de passe de votre compte SensorPush. L’intégration se connecte à l’API officielle Gateway Cloud (api.sensorpush.com) et ne fait que lire : les mesures passent par le cloud SensorPush, relayées par une passerelle SensorPush (G1 WiFi Gateway). Un nouveau compte doit d’abord se connecter une fois au Gateway Cloud Dashboard et accepter les conditions de l’API. Non affiliée à SensorPush.",
+        "de": "Gib die E-Mail-Adresse und das Passwort deines SensorPush-Kontos ein. Die Integration meldet sich bei der offiziellen Gateway-Cloud-API (api.sensorpush.com) an und liest nur: Die Messwerte laufen über die SensorPush-Cloud, weitergeleitet von einem SensorPush-Gateway (G1 WiFi Gateway). Ein neues Konto muss sich zuerst einmal im Gateway Cloud Dashboard anmelden und die API-Bedingungen akzeptieren. Nicht mit SensorPush verbunden.",
+        "es": "Introduzca la dirección de correo y la contraseña de su cuenta SensorPush. La integración se conecta a la API oficial Gateway Cloud (api.sensorpush.com) y solo lee: las mediciones pasan por la nube SensorPush, retransmitidas por una pasarela SensorPush (G1 WiFi Gateway). Una cuenta nueva debe conectarse primero una vez al Gateway Cloud Dashboard y aceptar las condiciones de la API. No afiliada a SensorPush."
+      },
+      "links": [
+        {
+          "url": "https://dashboard.sensorpush.com/",
+          "label": {
+            "en": "Gateway Cloud Dashboard",
+            "fr": "Gateway Cloud Dashboard",
+            "de": "Gateway Cloud Dashboard",
+            "es": "Gateway Cloud Dashboard"
+          }
+        },
+        {
+          "url": "https://www.sensorpush.com/gateway-cloud-api",
+          "label": {
+            "en": "SensorPush API documentation",
+            "fr": "Documentation de l’API SensorPush",
+            "de": "Dokumentation der SensorPush-API",
+            "es": "Documentación de la API de SensorPush"
+          }
+        }
+      ]
+    },
+    {
+      "key": "email",
+      "type": "string",
+      "required": true,
+      "label": {
+        "en": "E-mail address",
+        "fr": "Adresse e-mail",
+        "de": "E-Mail-Adresse",
+        "es": "Dirección de correo"
+      },
+      "placeholder": {
+        "en": "The e-mail of your SensorPush account",
+        "fr": "L’e-mail de votre compte SensorPush",
+        "de": "Die E-Mail deines SensorPush-Kontos",
+        "es": "El correo de su cuenta SensorPush"
+      }
+    },
+    {
+      "key": "password",
+      "type": "secret",
+      "required": true,
+      "label": {
+        "en": "Password",
+        "fr": "Mot de passe",
+        "de": "Passwort",
+        "es": "Contraseña"
+      },
+      "placeholder": {
+        "en": "The password of your SensorPush account",
+        "fr": "Le mot de passe de votre compte SensorPush",
+        "de": "Das Passwort deines SensorPush-Kontos",
+        "es": "La contraseña de su cuenta SensorPush"
+      }
+    },
+    {
+      "key": "readings",
+      "type": "section",
+      "label": {
+        "en": "Readings and triggers",
+        "fr": "Lectures et déclencheurs",
+        "de": "Abfragen und Auslöser",
+        "es": "Lecturas y disparadores"
+      },
+      "description": {
+        "en": "SensorPush accepts one request a minute at most: the integration never asks more. A gateway relays the sensors about once a minute. The list of the sensors and the gateways is read again every 15 minutes, in place of a sample reading.",
+        "fr": "SensorPush accepte au plus une requête par minute : l’intégration ne demande jamais plus. Une passerelle relaie les capteurs environ une fois par minute. La liste des capteurs et des passerelles est relue toutes les 15 minutes, à la place d’une lecture des mesures.",
+        "de": "SensorPush akzeptiert höchstens eine Anfrage pro Minute: Die Integration fragt nie öfter. Ein Gateway leitet die Sensoren etwa einmal pro Minute weiter. Die Liste der Sensoren und Gateways wird alle 15 Minuten neu gelesen, anstelle einer Messwertabfrage.",
+        "es": "SensorPush acepta como máximo una petición por minuto: la integración nunca pide más. Una pasarela retransmite los sensores aproximadamente una vez por minuto. La lista de sensores y pasarelas se vuelve a leer cada 15 minutos, en lugar de una lectura de mediciones."
+      }
+    },
+    {
+      "key": "sample_interval",
+      "type": "select",
+      "default": "1",
+      "label": {
+        "en": "Reading of the samples",
+        "fr": "Lecture des mesures",
+        "de": "Abfrage der Messwerte",
+        "es": "Lectura de las mediciones"
+      },
+      "description": {
+        "en": "How often the last sample of every sensor is read (one request for all).",
+        "fr": "Fréquence de lecture de la dernière mesure de chaque capteur (une seule requête).",
+        "de": "Wie oft der letzte Messwert jedes Sensors gelesen wird (eine Anfrage für alle).",
+        "es": "Frecuencia de lectura de la última medición de cada sensor (una sola petición)."
+      },
+      "options": [
+        {
+          "value": "1",
+          "label": {
+            "en": "Every minute",
+            "fr": "Toutes les minutes",
+            "de": "Jede Minute",
+            "es": "Cada minuto"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "Every 2 minutes",
+            "fr": "Toutes les 2 minutes",
+            "de": "Alle 2 Minuten",
+            "es": "Cada 2 minutos"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "en": "Every 5 minutes",
+            "fr": "Toutes les 5 minutes",
+            "de": "Alle 5 Minuten",
+            "es": "Cada 5 minutos"
+          }
+        },
+        {
+          "value": "10",
+          "label": {
+            "en": "Every 10 minutes",
+            "fr": "Toutes les 10 minutes",
+            "de": "Alle 10 Minuten",
+            "es": "Cada 10 minutos"
+          }
+        }
+      ]
+    },
+    {
+      "key": "silent_after",
+      "type": "select",
+      "default": "30",
+      "label": {
+        "en": "Sensor silent after",
+        "fr": "Capteur muet après",
+        "de": "Sensor stumm nach",
+        "es": "Sensor sin señal después de"
+      },
+      "description": {
+        "en": "Time without a new sample before a sensor is silent and the “sensor silent” trigger fires.",
+        "fr": "Durée sans nouvelle mesure avant qu’un capteur soit muet et que le déclencheur « capteur muet » se déclenche.",
+        "de": "Zeit ohne neuen Messwert, bevor ein Sensor als stumm gilt und der Auslöser „Sensor stumm“ auslöst.",
+        "es": "Tiempo sin una nueva medición antes de que un sensor quede sin señal y se active el disparador «sensor sin señal»."
+      },
+      "options": [
+        {
+          "value": "15",
+          "label": {
+            "en": "15 minutes",
+            "fr": "15 minutes",
+            "de": "15 Minuten",
+            "es": "15 minutos"
+          }
+        },
+        {
+          "value": "30",
+          "label": {
+            "en": "30 minutes",
+            "fr": "30 minutes",
+            "de": "30 Minuten",
+            "es": "30 minutos"
+          }
+        },
+        {
+          "value": "60",
+          "label": {
+            "en": "1 hour",
+            "fr": "1 heure",
+            "de": "1 Stunde",
+            "es": "1 hora"
+          }
+        },
+        {
+          "value": "120",
+          "label": {
+            "en": "2 hours",
+            "fr": "2 heures",
+            "de": "2 Stunden",
+            "es": "2 horas"
+          }
+        },
+        {
+          "value": "360",
+          "label": {
+            "en": "6 hours",
+            "fr": "6 heures",
+            "de": "6 Stunden",
+            "es": "6 horas"
+          }
+        }
+      ]
+    },
+    {
+      "key": "scene_units",
+      "type": "select",
+      "default": "metric",
+      "label": {
+        "en": "Units of the scenes",
+        "fr": "Unités des scènes",
+        "de": "Einheiten der Szenen",
+        "es": "Unidades de las escenas"
+      },
+      "description": {
+        "en": "Units of the values and texts of the scene actions and triggers. The widgets follow the units of each user.",
+        "fr": "Unités des valeurs et des textes des actions et déclencheurs de scène. Les widgets suivent les unités de chaque utilisateur.",
+        "de": "Einheiten der Werte und Texte der Szenenaktionen und Auslöser. Die Widgets folgen den Einheiten jedes Benutzers.",
+        "es": "Unidades de los valores y textos de las acciones y disparadores de escena. Los widgets siguen las unidades de cada usuario."
+      },
+      "options": [
+        {
+          "value": "metric",
+          "label": {
+            "en": "Metric (°C, hPa)",
+            "fr": "Métrique (°C, hPa)",
+            "de": "Metrisch (°C, hPa)",
+            "es": "Métrico (°C, hPa)"
+          }
+        },
+        {
+          "value": "us",
+          "label": {
+            "en": "US (°F, inHg)",
+            "fr": "US (°F, inHg)",
+            "de": "US (°F, inHg)",
+            "es": "EE. UU. (°F, inHg)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "default": "auto",
+      "label": {
+        "en": "Language of the texts",
+        "fr": "Langue des textes",
+        "de": "Sprache der Texte",
+        "es": "Idioma de los textos"
+      },
+      "description": {
+        "en": "Feature names, gateway state, scene texts and errors. Automatic: the language of the last widget shown.",
+        "fr": "Noms des fonctionnalités, état des passerelles, textes des scènes et erreurs. Automatique : la langue du dernier widget affiché.",
+        "de": "Namen der Funktionen, Gateway-Zustand, Szenentexte und Fehler. Automatisch: die Sprache des zuletzt angezeigten Widgets.",
+        "es": "Nombres de las funciones, estado de las pasarelas, textos de escenas y errores. Automático: el idioma del último widget mostrado."
+      },
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "fr": "Automatique",
+            "de": "Automatisch",
+            "es": "Automático"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "English",
+            "de": "English",
+            "es": "English"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "Français",
+            "fr": "Français",
+            "de": "Français",
+            "es": "Français"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "Deutsch",
+            "fr": "Deutsch",
+            "de": "Deutsch",
+            "es": "Deutsch"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Español",
+            "fr": "Español",
+            "de": "Español",
+            "es": "Español"
+          }
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "timeout_seconds": 90,
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "description": {
+        "en": "Signs in to SensorPush and reads the sensors (up to a minute of wait).",
+        "fr": "Se connecte à SensorPush et lit les capteurs (jusqu’à une minute d’attente).",
+        "de": "Meldet sich bei SensorPush an und liest die Sensoren (bis zu einer Minute Wartezeit).",
+        "es": "Se conecta a SensorPush y lee los sensores (hasta un minuto de espera)."
+      }
+    },
+    {
+      "key": "diagnostic",
+      "timeout_seconds": 10,
+      "label": {
+        "en": "Diagnostic",
+        "fr": "Diagnostic",
+        "de": "Diagnose",
+        "es": "Diagnóstico"
+      },
+      "description": {
+        "en": "Writes what the integration knows to its logs (no password, no token), for an issue.",
+        "fr": "Écrit ce que l’intégration sait dans ses journaux (sans mot de passe ni jeton), pour un ticket.",
+        "de": "Schreibt, was die Integration weiß, in ihre Logs (ohne Passwort und Token), für ein Issue.",
+        "es": "Escribe lo que sabe la integración en sus registros (sin contraseña ni token), para una incidencia."
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "key": "overview",
+      "label": {
+        "en": "SensorPush sensors",
+        "fr": "Capteurs SensorPush",
+        "de": "SensorPush-Sensoren",
+        "es": "Sensores SensorPush"
+      },
+      "description": {
+        "en": "Every sensor with its temperature and humidity, the alerts first, and the gateways.",
+        "fr": "Tous les capteurs avec température et humidité, les alertes d’abord, et les passerelles.",
+        "de": "Alle Sensoren mit Temperatur und Feuchte, Alarme zuerst, und die Gateways.",
+        "es": "Todos los sensores con temperatura y humedad, las alertas primero, y las pasarelas."
+      },
+      "icon": "thermometer"
+    },
+    {
+      "key": "sensor",
+      "label": {
+        "en": "SensorPush sensor",
+        "fr": "Capteur SensorPush",
+        "de": "SensorPush-Sensor",
+        "es": "Sensor SensorPush"
+      },
+      "description": {
+        "en": "One sensor: its measures, the last 24 hours, its alert range, battery and signal.",
+        "fr": "Un capteur : ses mesures, les dernières 24 heures, sa plage d’alerte, pile et signal.",
+        "de": "Ein Sensor: Messwerte, die letzten 24 Stunden, Alarmbereich, Batterie und Signal.",
+        "es": "Un sensor: sus medidas, las últimas 24 horas, su rango de alerta, pila y señal."
+      },
+      "icon": "droplet",
+      "settings": [
+        {
+          "key": "sensor",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Sensor",
+            "fr": "Capteur",
+            "de": "Sensor",
+            "es": "Sensor"
+          },
+          "description": {
+            "en": "A SensorPush sensor. Leave empty for the first sensor.",
+            "fr": "Un capteur SensorPush. Laissez vide pour le premier capteur.",
+            "de": "Ein SensorPush-Sensor. Leer lassen für den ersten Sensor.",
+            "es": "Un sensor SensorPush. Déjelo vacío para el primer sensor."
+          }
+        }
+      ]
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "out_of_range",
+      "label": {
+        "en": "SensorPush: outside the alert range",
+        "fr": "SensorPush : hors plage d’alerte",
+        "de": "SensorPush: außerhalb des Alarmbereichs",
+        "es": "SensorPush: fuera del rango de alerta"
+      },
+      "description": {
+        "en": "The temperature or the humidity leaves the alert range set in the SensorPush app.",
+        "fr": "La température ou l’humidité sort de la plage d’alerte réglée dans l’application SensorPush.",
+        "de": "Temperatur oder Luftfeuchtigkeit verlässt den in der SensorPush-App eingestellten Alarmbereich.",
+        "es": "La temperatura o la humedad sale del rango de alerta configurado en la aplicación SensorPush."
+      },
+      "fields": [
+        {
+          "key": "sensor",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Sensor",
+            "fr": "Capteur",
+            "de": "Sensor",
+            "es": "Sensor"
+          },
+          "description": {
+            "en": "A SensorPush sensor. Leave empty for any sensor.",
+            "fr": "Un capteur SensorPush. Laissez vide pour n’importe quel capteur.",
+            "de": "Ein SensorPush-Sensor. Leer lassen für jeden Sensor.",
+            "es": "Un sensor SensorPush. Déjelo vacío para cualquier sensor."
+          }
+        },
+        {
+          "key": "measure",
+          "type": "multi_select",
+          "required": false,
+          "label": {
+            "en": "Measures",
+            "fr": "Mesures",
+            "de": "Messwerte",
+            "es": "Medidas"
+          },
+          "description": {
+            "en": "Leave empty for both.",
+            "fr": "Laissez vide pour les deux.",
+            "de": "Leer lassen für beide.",
+            "es": "Déjelo vacío para ambas."
+          },
+          "options": [
+            {
+              "value": "temperature",
+              "label": {
+                "en": "Temperature",
+                "fr": "Température",
+                "de": "Temperatur",
+                "es": "Temperatura"
+              }
+            },
+            {
+              "value": "humidity",
+              "label": {
+                "en": "Humidity",
+                "fr": "Humidité",
+                "de": "Luftfeuchtigkeit",
+                "es": "Humedad"
+              }
+            }
+          ]
+        },
+        {
+          "key": "side",
+          "type": "multi_select",
+          "required": false,
+          "label": {
+            "en": "Side",
+            "fr": "Côté",
+            "de": "Seite",
+            "es": "Lado"
+          },
+          "description": {
+            "en": "Leave empty for both.",
+            "fr": "Laissez vide pour les deux.",
+            "de": "Leer lassen für beide.",
+            "es": "Déjelo vacío para ambos."
+          },
+          "options": [
+            {
+              "value": "above",
+              "label": {
+                "en": "Above the range",
+                "fr": "Au-dessus de la plage",
+                "de": "Über dem Bereich",
+                "es": "Por encima del rango"
+              }
+            },
+            {
+              "value": "below",
+              "label": {
+                "en": "Below the range",
+                "fr": "En dessous de la plage",
+                "de": "Unter dem Bereich",
+                "es": "Por debajo del rango"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "sensor",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "sensor_name",
+          "type": "string",
+          "label": {
+            "en": "Sensor name",
+            "fr": "Nom du capteur",
+            "de": "Name des Sensors",
+            "es": "Nombre del sensor"
+          }
+        },
+        {
+          "key": "sensor_id",
+          "type": "string",
+          "label": {
+            "en": "SensorPush sensor id",
+            "fr": "Identifiant SensorPush du capteur",
+            "de": "SensorPush-Sensor-ID",
+            "es": "Identificador SensorPush del sensor"
+          }
+        },
+        {
+          "key": "measure",
+          "type": "string",
+          "label": {
+            "en": "Measure (key)",
+            "fr": "Mesure (clé)",
+            "de": "Messwert (Schlüssel)",
+            "es": "Medida (clave)"
+          }
+        },
+        {
+          "key": "measure_label",
+          "type": "string",
+          "label": {
+            "en": "Measure",
+            "fr": "Mesure",
+            "de": "Messwert",
+            "es": "Medida"
+          }
+        },
+        {
+          "key": "value",
+          "type": "number",
+          "label": {
+            "en": "Value",
+            "fr": "Valeur",
+            "de": "Wert",
+            "es": "Valor"
+          }
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "label": {
+            "en": "Unit",
+            "fr": "Unité",
+            "de": "Einheit",
+            "es": "Unidad"
+          }
+        },
+        {
+          "key": "alert_min",
+          "type": "number",
+          "label": {
+            "en": "Alert minimum",
+            "fr": "Minimum de l’alerte",
+            "de": "Alarm-Minimum",
+            "es": "Mínimo de la alerta"
+          }
+        },
+        {
+          "key": "alert_max",
+          "type": "number",
+          "label": {
+            "en": "Alert maximum",
+            "fr": "Maximum de l’alerte",
+            "de": "Alarm-Maximum",
+            "es": "Máximo de la alerta"
+          }
+        },
+        {
+          "key": "side",
+          "type": "string",
+          "label": {
+            "en": "Side (above, below)",
+            "fr": "Côté (above, below)",
+            "de": "Seite (above, below)",
+            "es": "Lado (above, below)"
+          }
+        },
+        {
+          "key": "side_label",
+          "type": "string",
+          "label": {
+            "en": "Side, in words",
+            "fr": "Côté, en toutes lettres",
+            "de": "Seite, ausgeschrieben",
+            "es": "Lado, en palabras"
+          }
+        }
+      ]
+    },
+    {
+      "key": "back_in_range",
+      "label": {
+        "en": "SensorPush: back in the alert range",
+        "fr": "SensorPush : retour dans la plage",
+        "de": "SensorPush: zurück im Alarmbereich",
+        "es": "SensorPush: de vuelta en el rango"
+      },
+      "description": {
+        "en": "The temperature or the humidity comes back inside its alert range.",
+        "fr": "La température ou l’humidité revient dans sa plage d’alerte.",
+        "de": "Temperatur oder Luftfeuchtigkeit kehrt in ihren Alarmbereich zurück.",
+        "es": "La temperatura o la humedad vuelve a su rango de alerta."
+      },
+      "fields": [
+        {
+          "key": "sensor",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Sensor",
+            "fr": "Capteur",
+            "de": "Sensor",
+            "es": "Sensor"
+          },
+          "description": {
+            "en": "A SensorPush sensor. Leave empty for any sensor.",
+            "fr": "Un capteur SensorPush. Laissez vide pour n’importe quel capteur.",
+            "de": "Ein SensorPush-Sensor. Leer lassen für jeden Sensor.",
+            "es": "Un sensor SensorPush. Déjelo vacío para cualquier sensor."
+          }
+        },
+        {
+          "key": "measure",
+          "type": "multi_select",
+          "required": false,
+          "label": {
+            "en": "Measures",
+            "fr": "Mesures",
+            "de": "Messwerte",
+            "es": "Medidas"
+          },
+          "description": {
+            "en": "Leave empty for both.",
+            "fr": "Laissez vide pour les deux.",
+            "de": "Leer lassen für beide.",
+            "es": "Déjelo vacío para ambas."
+          },
+          "options": [
+            {
+              "value": "temperature",
+              "label": {
+                "en": "Temperature",
+                "fr": "Température",
+                "de": "Temperatur",
+                "es": "Temperatura"
+              }
+            },
+            {
+              "value": "humidity",
+              "label": {
+                "en": "Humidity",
+                "fr": "Humidité",
+                "de": "Luftfeuchtigkeit",
+                "es": "Humedad"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "sensor",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "sensor_name",
+          "type": "string",
+          "label": {
+            "en": "Sensor name",
+            "fr": "Nom du capteur",
+            "de": "Name des Sensors",
+            "es": "Nombre del sensor"
+          }
+        },
+        {
+          "key": "sensor_id",
+          "type": "string",
+          "label": {
+            "en": "SensorPush sensor id",
+            "fr": "Identifiant SensorPush du capteur",
+            "de": "SensorPush-Sensor-ID",
+            "es": "Identificador SensorPush del sensor"
+          }
+        },
+        {
+          "key": "measure",
+          "type": "string",
+          "label": {
+            "en": "Measure (key)",
+            "fr": "Mesure (clé)",
+            "de": "Messwert (Schlüssel)",
+            "es": "Medida (clave)"
+          }
+        },
+        {
+          "key": "measure_label",
+          "type": "string",
+          "label": {
+            "en": "Measure",
+            "fr": "Mesure",
+            "de": "Messwert",
+            "es": "Medida"
+          }
+        },
+        {
+          "key": "value",
+          "type": "number",
+          "label": {
+            "en": "Value",
+            "fr": "Valeur",
+            "de": "Wert",
+            "es": "Valor"
+          }
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "label": {
+            "en": "Unit",
+            "fr": "Unité",
+            "de": "Einheit",
+            "es": "Unidad"
+          }
+        },
+        {
+          "key": "alert_min",
+          "type": "number",
+          "label": {
+            "en": "Alert minimum",
+            "fr": "Minimum de l’alerte",
+            "de": "Alarm-Minimum",
+            "es": "Mínimo de la alerta"
+          }
+        },
+        {
+          "key": "alert_max",
+          "type": "number",
+          "label": {
+            "en": "Alert maximum",
+            "fr": "Maximum de l’alerte",
+            "de": "Alarm-Maximum",
+            "es": "Máximo de la alerta"
+          }
+        },
+        {
+          "key": "previous_side",
+          "type": "string",
+          "label": {
+            "en": "Previous side (above, below)",
+            "fr": "Côté précédent (above, below)",
+            "de": "Vorherige Seite (above, below)",
+            "es": "Lado anterior (above, below)"
+          }
+        },
+        {
+          "key": "minutes_outside",
+          "type": "number",
+          "label": {
+            "en": "Minutes outside",
+            "fr": "Minutes hors plage",
+            "de": "Minuten außerhalb",
+            "es": "Minutos fuera"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sensor_silent",
+      "label": {
+        "en": "SensorPush: sensor silent",
+        "fr": "SensorPush : capteur muet",
+        "de": "SensorPush: Sensor stumm",
+        "es": "SensorPush: sensor sin señal"
+      },
+      "description": {
+        "en": "No new sample from a sensor for the delay of the configuration.",
+        "fr": "Aucune nouvelle mesure d’un capteur pendant le délai de la configuration.",
+        "de": "Kein neuer Messwert eines Sensors während der eingestellten Zeit.",
+        "es": "Ninguna medición nueva de un sensor durante el plazo de la configuración."
+      },
+      "fields": [
+        {
+          "key": "sensor",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Sensor",
+            "fr": "Capteur",
+            "de": "Sensor",
+            "es": "Sensor"
+          },
+          "description": {
+            "en": "A SensorPush sensor. Leave empty for any sensor.",
+            "fr": "Un capteur SensorPush. Laissez vide pour n’importe quel capteur.",
+            "de": "Ein SensorPush-Sensor. Leer lassen für jeden Sensor.",
+            "es": "Un sensor SensorPush. Déjelo vacío para cualquier sensor."
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "sensor",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "sensor_name",
+          "type": "string",
+          "label": {
+            "en": "Sensor name",
+            "fr": "Nom du capteur",
+            "de": "Name des Sensors",
+            "es": "Nombre del sensor"
+          }
+        },
+        {
+          "key": "sensor_id",
+          "type": "string",
+          "label": {
+            "en": "SensorPush sensor id",
+            "fr": "Identifiant SensorPush du capteur",
+            "de": "SensorPush-Sensor-ID",
+            "es": "Identificador SensorPush del sensor"
+          }
+        },
+        {
+          "key": "minutes_without_data",
+          "type": "number",
+          "label": {
+            "en": "Minutes without data",
+            "fr": "Minutes sans données",
+            "de": "Minuten ohne Daten",
+            "es": "Minutos sin datos"
+          }
+        },
+        {
+          "key": "last_sample_at",
+          "type": "string",
+          "label": {
+            "en": "Last sample (ISO)",
+            "fr": "Dernière mesure (ISO)",
+            "de": "Letzter Messwert (ISO)",
+            "es": "Última medición (ISO)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sensor_back",
+      "label": {
+        "en": "SensorPush: sensor back",
+        "fr": "SensorPush : capteur de retour",
+        "de": "SensorPush: Sensor wieder da",
+        "es": "SensorPush: sensor de vuelta"
+      },
+      "description": {
+        "en": "Samples arrive again from a silent sensor.",
+        "fr": "Un capteur muet envoie de nouveau des mesures.",
+        "de": "Ein stummer Sensor sendet wieder Messwerte.",
+        "es": "Un sensor sin señal vuelve a enviar mediciones."
+      },
+      "fields": [
+        {
+          "key": "sensor",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Sensor",
+            "fr": "Capteur",
+            "de": "Sensor",
+            "es": "Sensor"
+          },
+          "description": {
+            "en": "A SensorPush sensor. Leave empty for any sensor.",
+            "fr": "Un capteur SensorPush. Laissez vide pour n’importe quel capteur.",
+            "de": "Ein SensorPush-Sensor. Leer lassen für jeden Sensor.",
+            "es": "Un sensor SensorPush. Déjelo vacío para cualquier sensor."
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "sensor",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "sensor_name",
+          "type": "string",
+          "label": {
+            "en": "Sensor name",
+            "fr": "Nom du capteur",
+            "de": "Name des Sensors",
+            "es": "Nombre del sensor"
+          }
+        },
+        {
+          "key": "sensor_id",
+          "type": "string",
+          "label": {
+            "en": "SensorPush sensor id",
+            "fr": "Identifiant SensorPush du capteur",
+            "de": "SensorPush-Sensor-ID",
+            "es": "Identificador SensorPush del sensor"
+          }
+        },
+        {
+          "key": "minutes_without_data",
+          "type": "number",
+          "label": {
+            "en": "Minutes without data",
+            "fr": "Minutes sans données",
+            "de": "Minuten ohne Daten",
+            "es": "Minutos sin datos"
+          }
+        },
+        {
+          "key": "last_sample_at",
+          "type": "string",
+          "label": {
+            "en": "Last sample (ISO)",
+            "fr": "Dernière mesure (ISO)",
+            "de": "Letzter Messwert (ISO)",
+            "es": "Última medición (ISO)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "gateway_disconnected",
+      "label": {
+        "en": "SensorPush: gateway disconnected",
+        "fr": "SensorPush : passerelle déconnectée",
+        "de": "SensorPush: Gateway getrennt",
+        "es": "SensorPush: pasarela desconectada"
+      },
+      "description": {
+        "en": "A gateway has not checked in with the SensorPush cloud for 30 minutes.",
+        "fr": "Une passerelle ne s’est pas signalée au cloud SensorPush depuis 30 minutes.",
+        "de": "Ein Gateway hat sich seit 30 Minuten nicht bei der SensorPush-Cloud gemeldet.",
+        "es": "Una pasarela no se ha comunicado con la nube SensorPush desde hace 30 minutos."
+      },
+      "fields": [
+        {
+          "key": "gateway",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Gateway",
+            "fr": "Passerelle",
+            "de": "Gateway",
+            "es": "Pasarela"
+          },
+          "description": {
+            "en": "A SensorPush gateway. Leave empty for any gateway.",
+            "fr": "Une passerelle SensorPush. Laissez vide pour n’importe quelle passerelle.",
+            "de": "Ein SensorPush-Gateway. Leer lassen für jedes Gateway.",
+            "es": "Una pasarela SensorPush. Déjela vacía para cualquier pasarela."
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "gateway",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "gateway_name",
+          "type": "string",
+          "label": {
+            "en": "Gateway name",
+            "fr": "Nom de la passerelle",
+            "de": "Name des Gateways",
+            "es": "Nombre de la pasarela"
+          }
+        },
+        {
+          "key": "last_seen_at",
+          "type": "string",
+          "label": {
+            "en": "Last check-in (ISO)",
+            "fr": "Dernier contact (ISO)",
+            "de": "Letzter Kontakt (ISO)",
+            "es": "Último contacto (ISO)"
+          }
+        },
+        {
+          "key": "minutes_since_seen",
+          "type": "number",
+          "label": {
+            "en": "Minutes since the last check-in",
+            "fr": "Minutes depuis le dernier contact",
+            "de": "Minuten seit dem letzten Kontakt",
+            "es": "Minutos desde el último contacto"
+          }
+        }
+      ]
+    },
+    {
+      "key": "gateway_reconnected",
+      "label": {
+        "en": "SensorPush: gateway reconnected",
+        "fr": "SensorPush : passerelle reconnectée",
+        "de": "SensorPush: Gateway wieder verbunden",
+        "es": "SensorPush: pasarela reconectada"
+      },
+      "description": {
+        "en": "A disconnected gateway checks in again.",
+        "fr": "Une passerelle déconnectée se signale de nouveau.",
+        "de": "Ein getrenntes Gateway meldet sich wieder.",
+        "es": "Una pasarela desconectada vuelve a comunicarse."
+      },
+      "fields": [
+        {
+          "key": "gateway",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Gateway",
+            "fr": "Passerelle",
+            "de": "Gateway",
+            "es": "Pasarela"
+          },
+          "description": {
+            "en": "A SensorPush gateway. Leave empty for any gateway.",
+            "fr": "Une passerelle SensorPush. Laissez vide pour n’importe quelle passerelle.",
+            "de": "Ein SensorPush-Gateway. Leer lassen für jedes Gateway.",
+            "es": "Una pasarela SensorPush. Déjela vacía para cualquier pasarela."
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "gateway",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "gateway_name",
+          "type": "string",
+          "label": {
+            "en": "Gateway name",
+            "fr": "Nom de la passerelle",
+            "de": "Name des Gateways",
+            "es": "Nombre de la pasarela"
+          }
+        },
+        {
+          "key": "last_seen_at",
+          "type": "string",
+          "label": {
+            "en": "Last check-in (ISO)",
+            "fr": "Dernier contact (ISO)",
+            "de": "Letzter Kontakt (ISO)",
+            "es": "Último contacto (ISO)"
+          }
+        },
+        {
+          "key": "minutes_offline",
+          "type": "number",
+          "label": {
+            "en": "Minutes offline",
+            "fr": "Minutes déconnectée",
+            "de": "Minuten getrennt",
+            "es": "Minutos desconectada"
+          }
+        }
+      ]
+    },
+    {
+      "key": "access_refused",
+      "label": {
+        "en": "SensorPush: access refused",
+        "fr": "SensorPush : accès refusé",
+        "de": "SensorPush: Zugriff verweigert",
+        "es": "SensorPush: acceso rechazado"
+      },
+      "description": {
+        "en": "SensorPush refuses the e-mail, the password or the access token.",
+        "fr": "SensorPush refuse l’e-mail, le mot de passe ou le jeton d’accès.",
+        "de": "SensorPush lehnt E-Mail, Passwort oder Zugriffstoken ab.",
+        "es": "SensorPush rechaza el correo, la contraseña o el token de acceso."
+      },
+      "variables": [
+        {
+          "key": "reason",
+          "type": "string",
+          "label": {
+            "en": "Reason (refused, invalid_password, token)",
+            "fr": "Raison (refused, invalid_password, token)",
+            "de": "Grund (refused, invalid_password, token)",
+            "es": "Motivo (refused, invalid_password, token)"
+          }
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "label": {
+            "en": "Message",
+            "fr": "Message",
+            "de": "Nachricht",
+            "es": "Mensaje"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "get_sensor",
+      "timeout_seconds": 10,
+      "label": {
+        "en": "SensorPush: values of a sensor",
+        "fr": "SensorPush : valeurs d’un capteur",
+        "de": "SensorPush: Werte eines Sensors",
+        "es": "SensorPush: valores de un sensor"
+      },
+      "description": {
+        "en": "The last values of a sensor (no request): for a message or a condition.",
+        "fr": "Les dernières valeurs d’un capteur (sans requête) : pour un message ou une condition.",
+        "de": "Die letzten Werte eines Sensors (ohne Anfrage): für eine Nachricht oder Bedingung.",
+        "es": "Los últimos valores de un sensor (sin petición): para un mensaje o una condición."
+      },
+      "fields": [
+        {
+          "key": "sensor",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Sensor",
+            "fr": "Capteur",
+            "de": "Sensor",
+            "es": "Sensor"
+          },
+          "description": {
+            "en": "A SensorPush sensor. Leave empty for the first sensor.",
+            "fr": "Un capteur SensorPush. Laissez vide pour le premier capteur.",
+            "de": "Ein SensorPush-Sensor. Leer lassen für den ersten Sensor.",
+            "es": "Un sensor SensorPush. Déjelo vacío para el primer sensor."
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "key": "sensor_name",
+          "type": "string",
+          "label": {
+            "en": "Sensor name",
+            "fr": "Nom du capteur",
+            "de": "Name des Sensors",
+            "es": "Nombre del sensor"
+          }
+        },
+        {
+          "key": "temperature",
+          "type": "number",
+          "label": {
+            "en": "Temperature",
+            "fr": "Température",
+            "de": "Temperatur",
+            "es": "Temperatura"
+          }
+        },
+        {
+          "key": "humidity",
+          "type": "number",
+          "label": {
+            "en": "Humidity (%)",
+            "fr": "Humidité (%)",
+            "de": "Luftfeuchtigkeit (%)",
+            "es": "Humedad (%)"
+          }
+        },
+        {
+          "key": "dewpoint",
+          "type": "number",
+          "label": {
+            "en": "Dew point",
+            "fr": "Point de rosée",
+            "de": "Taupunkt",
+            "es": "Punto de rocío"
+          }
+        },
+        {
+          "key": "pressure",
+          "type": "number",
+          "label": {
+            "en": "Pressure (hPa or inHg)",
+            "fr": "Pression (hPa ou inHg)",
+            "de": "Luftdruck (hPa oder inHg)",
+            "es": "Presión (hPa o inHg)"
+          }
+        },
+        {
+          "key": "vpd",
+          "type": "number",
+          "label": {
+            "en": "VPD (kPa)",
+            "fr": "VPD (kPa)",
+            "de": "VPD (kPa)",
+            "es": "VPD (kPa)"
+          }
+        },
+        {
+          "key": "battery_voltage",
+          "type": "number",
+          "label": {
+            "en": "Battery voltage (V)",
+            "fr": "Tension de la pile (V)",
+            "de": "Batteriespannung (V)",
+            "es": "Tensión de la pila (V)"
+          }
+        },
+        {
+          "key": "signal",
+          "type": "number",
+          "label": {
+            "en": "Signal (dBm)",
+            "fr": "Signal (dBm)",
+            "de": "Signal (dBm)",
+            "es": "Señal (dBm)"
+          }
+        },
+        {
+          "key": "minutes_since_sample",
+          "type": "number",
+          "label": {
+            "en": "Minutes since the last sample",
+            "fr": "Minutes depuis la dernière mesure",
+            "de": "Minuten seit dem letzten Messwert",
+            "es": "Minutos desde la última medición"
+          }
+        },
+        {
+          "key": "is_silent",
+          "type": "boolean",
+          "label": {
+            "en": "Sensor silent",
+            "fr": "Capteur muet",
+            "de": "Sensor stumm",
+            "es": "Sensor sin señal"
+          }
+        },
+        {
+          "key": "temperature_unit",
+          "type": "string",
+          "label": {
+            "en": "Temperature unit (°C, °F)",
+            "fr": "Unité de température (°C, °F)",
+            "de": "Temperatureinheit (°C, °F)",
+            "es": "Unidad de temperatura (°C, °F)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary sentence",
+            "fr": "Phrase de synthèse",
+            "de": "Zusammenfassung",
+            "es": "Frase de resumen"
+          }
+        }
+      ]
+    },
+    {
+      "key": "get_history",
+      "timeout_seconds": 120,
+      "label": {
+        "en": "SensorPush: history of a sensor",
+        "fr": "SensorPush : historique d’un capteur",
+        "de": "SensorPush: Verlauf eines Sensors",
+        "es": "SensorPush: historial de un sensor"
+      },
+      "description": {
+        "en": "Minimum, maximum and average over the last hours (one request, up to a minute of wait).",
+        "fr": "Minimum, maximum et moyenne sur les dernières heures (une requête, jusqu’à une minute d’attente).",
+        "de": "Minimum, Maximum und Mittel der letzten Stunden (eine Anfrage, bis zu einer Minute Wartezeit).",
+        "es": "Mínimo, máximo y media de las últimas horas (una petición, hasta un minuto de espera)."
+      },
+      "fields": [
+        {
+          "key": "sensor",
+          "type": "select",
+          "source": "devices",
+          "required": false,
+          "label": {
+            "en": "Sensor",
+            "fr": "Capteur",
+            "de": "Sensor",
+            "es": "Sensor"
+          },
+          "description": {
+            "en": "A SensorPush sensor. Leave empty for the first sensor.",
+            "fr": "Un capteur SensorPush. Laissez vide pour le premier capteur.",
+            "de": "Ein SensorPush-Sensor. Leer lassen für den ersten Sensor.",
+            "es": "Un sensor SensorPush. Déjelo vacío para el primer sensor."
+          }
+        },
+        {
+          "key": "hours",
+          "type": "number",
+          "required": false,
+          "default": 24,
+          "min": 1,
+          "max": 72,
+          "label": {
+            "en": "Hours",
+            "fr": "Heures",
+            "de": "Stunden",
+            "es": "Horas"
+          },
+          "description": {
+            "en": "The last 1 to 72 hours (24 by default).",
+            "fr": "Les dernières 1 à 72 heures (24 par défaut).",
+            "de": "Die letzten 1 bis 72 Stunden (standardmäßig 24).",
+            "es": "Las últimas 1 a 72 horas (24 por defecto)."
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "key": "sensor_name",
+          "type": "string",
+          "label": {
+            "en": "Sensor name",
+            "fr": "Nom du capteur",
+            "de": "Name des Sensors",
+            "es": "Nombre del sensor"
+          }
+        },
+        {
+          "key": "sample_count",
+          "type": "number",
+          "label": {
+            "en": "Number of samples",
+            "fr": "Nombre de mesures",
+            "de": "Anzahl der Messwerte",
+            "es": "Número de mediciones"
+          }
+        },
+        {
+          "key": "temperature_min",
+          "type": "number",
+          "label": {
+            "en": "Minimum temperature",
+            "fr": "Température minimale",
+            "de": "Minimale Temperatur",
+            "es": "Temperatura mínima"
+          }
+        },
+        {
+          "key": "temperature_max",
+          "type": "number",
+          "label": {
+            "en": "Maximum temperature",
+            "fr": "Température maximale",
+            "de": "Maximale Temperatur",
+            "es": "Temperatura máxima"
+          }
+        },
+        {
+          "key": "temperature_avg",
+          "type": "number",
+          "label": {
+            "en": "Average temperature",
+            "fr": "Température moyenne",
+            "de": "Mittlere Temperatur",
+            "es": "Temperatura media"
+          }
+        },
+        {
+          "key": "humidity_min",
+          "type": "number",
+          "label": {
+            "en": "Minimum humidity (%)",
+            "fr": "Humidité minimale (%)",
+            "de": "Minimale Luftfeuchtigkeit (%)",
+            "es": "Humedad mínima (%)"
+          }
+        },
+        {
+          "key": "humidity_max",
+          "type": "number",
+          "label": {
+            "en": "Maximum humidity (%)",
+            "fr": "Humidité maximale (%)",
+            "de": "Maximale Luftfeuchtigkeit (%)",
+            "es": "Humedad máxima (%)"
+          }
+        },
+        {
+          "key": "humidity_avg",
+          "type": "number",
+          "label": {
+            "en": "Average humidity (%)",
+            "fr": "Humidité moyenne (%)",
+            "de": "Mittlere Luftfeuchtigkeit (%)",
+            "es": "Humedad media (%)"
+          }
+        },
+        {
+          "key": "temperature_unit",
+          "type": "string",
+          "label": {
+            "en": "Temperature unit (°C, °F)",
+            "fr": "Unité de température (°C, °F)",
+            "de": "Temperatureinheit (°C, °F)",
+            "es": "Unidad de temperatura (°C, °F)"
+          }
+        },
+        {
+          "key": "truncated",
+          "type": "boolean",
+          "label": {
+            "en": "Answer truncated by SensorPush",
+            "fr": "Réponse tronquée par SensorPush",
+            "de": "Antwort von SensorPush gekürzt",
+            "es": "Respuesta truncada por SensorPush"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary sentence",
+            "fr": "Phrase de synthèse",
+            "de": "Zusammenfassung",
+            "es": "Frase de resumen"
+          }
+        }
+      ]
+    }
+  ]
+}

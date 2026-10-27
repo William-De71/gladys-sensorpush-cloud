@@ -1,0 +1,44 @@
+{
+  "name": "gladys-sensorpush-cloud",
+  "version": "0.1.0",
+  "private": true,
+  "description": "External Gladys Assistant integration for SensorPush sensors and gateways through the official SensorPush Gateway Cloud API: temperature, humidity, dew point, pressure, VPD, gateway connection, alert-range scene triggers, dashboard widgets. Read only.",
+  "homepage": "https://github.com/William-De71/gladys-sensorpush-cloud",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/William-De71/gladys-sensorpush-cloud.git"
+  },
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@gladysassistant/integration-sdk": "^0.16.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "gladys-assistant",
+    "gladys-assistant-integration",
+    "sensorpush",
+    "hygrometer",
+    "thermometer",
+    "humidity",
+    "temperature",
+    "home-automation"
+  ]
+}

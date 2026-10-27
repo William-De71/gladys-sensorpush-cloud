@@ -1,0 +1,15 @@
+Gladys SensorPush Cloud integration
+Copyright 2026 William Deren
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+It reads the sensors and gateways of the user's own SensorPush account through
+the official SensorPush Gateway Cloud API
+(https://www.sensorpush.com/gateway-cloud-api, Swagger definition
+https://api.sensorpush.com/api/v1/support/swagger/swagger-v1.json), with the
+e-mail address and the password of that account. This integration is not
+affiliated with nor endorsed by SensorPush (Cousins & Sears LLC). The endpoints,
+fields and units follow the official Swagger definition and the answers of the
+live API; the cadence of the readings was compared with the Home Assistant
+"SensorPush Cloud" integration (Apache-2.0). No code is taken from it nor from
+its libraries.

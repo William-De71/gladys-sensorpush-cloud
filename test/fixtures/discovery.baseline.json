@@ -1,0 +1,528 @@
+{
+  "devices": {
+    "sensor_all": {
+      "external_id": "ext:test-integration:sensor:21422-4417761108",
+      "should_poll": false,
+      "params": ["SENSORPUSH_SENSOR_ID", "SENSORPUSH_DEVICE_ID"],
+      "features": [
+        {
+          "external_id": "ext:test-integration:sensor:21422-4417761108:temperature",
+          "category": "temperature-sensor",
+          "type": "decimal",
+          "unit": "celsius",
+          "min": -40,
+          "max": 70,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:test-integration:sensor:21422-4417761108:humidity",
+          "category": "humidity-sensor",
+          "type": "decimal",
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:test-integration:sensor:21422-4417761108:dewpoint",
+          "category": "temperature-sensor",
+          "type": "probe",
+          "unit": "celsius",
+          "min": -60,
+          "max": 70,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:test-integration:sensor:21422-4417761108:pressure",
+          "category": "pressure-sensor",
+          "type": "decimal",
+          "unit": "hPa",
+          "min": 300,
+          "max": 1100,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:test-integration:sensor:21422-4417761108:vpd",
+          "category": "pressure-sensor",
+          "type": "decimal",
+          "unit": "kPa",
+          "min": 0,
+          "max": 10,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "sensor_basic": {
+      "external_id": "ext:test-integration:sensor:16855-27453475893",
+      "should_poll": false,
+      "params": ["SENSORPUSH_SENSOR_ID", "SENSORPUSH_DEVICE_ID"],
+      "features": [
+        {
+          "external_id": "ext:test-integration:sensor:16855-27453475893:temperature",
+          "category": "temperature-sensor",
+          "type": "decimal",
+          "unit": "celsius",
+          "min": -40,
+          "max": 70,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:test-integration:sensor:16855-27453475893:humidity",
+          "category": "humidity-sensor",
+          "type": "decimal",
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "gateway": {
+      "external_id": "ext:test-integration:gateway:Maison",
+      "should_poll": false,
+      "params": ["SENSORPUSH_GATEWAY"],
+      "features": [
+        {
+          "external_id": "ext:test-integration:gateway:Maison:status",
+          "category": "text",
+          "type": "text",
+          "unit": null,
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:test-integration:gateway:Maison:version",
+          "category": "text",
+          "type": "text",
+          "unit": null,
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    }
+  },
+  "manifest": {
+    "config_schema": [
+      {
+        "key": "intro",
+        "type": "section"
+      },
+      {
+        "key": "email",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "type": "secret"
+      },
+      {
+        "key": "readings",
+        "type": "section"
+      },
+      {
+        "key": "sample_interval",
+        "type": "select"
+      },
+      {
+        "key": "silent_after",
+        "type": "select"
+      },
+      {
+        "key": "scene_units",
+        "type": "select"
+      },
+      {
+        "key": "language",
+        "type": "select"
+      }
+    ],
+    "actions": ["test_connection", "diagnostic"],
+    "action_fields": {
+      "test_connection": [],
+      "diagnostic": []
+    },
+    "widgets": [
+      {
+        "key": "overview",
+        "settings": [],
+        "options": {}
+      },
+      {
+        "key": "sensor",
+        "settings": ["sensor"],
+        "options": {}
+      }
+    ],
+    "scene_triggers": [
+      {
+        "key": "out_of_range",
+        "fields": [
+          {
+            "key": "sensor",
+            "options": []
+          },
+          {
+            "key": "measure",
+            "options": ["temperature", "humidity"]
+          },
+          {
+            "key": "side",
+            "options": ["above", "below"]
+          }
+        ],
+        "variables": [
+          {
+            "key": "sensor",
+            "type": "string"
+          },
+          {
+            "key": "sensor_name",
+            "type": "string"
+          },
+          {
+            "key": "sensor_id",
+            "type": "string"
+          },
+          {
+            "key": "measure",
+            "type": "string"
+          },
+          {
+            "key": "measure_label",
+            "type": "string"
+          },
+          {
+            "key": "value",
+            "type": "number"
+          },
+          {
+            "key": "unit",
+            "type": "string"
+          },
+          {
+            "key": "alert_min",
+            "type": "number"
+          },
+          {
+            "key": "alert_max",
+            "type": "number"
+          },
+          {
+            "key": "side",
+            "type": "string"
+          },
+          {
+            "key": "side_label",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "back_in_range",
+        "fields": [
+          {
+            "key": "sensor",
+            "options": []
+          },
+          {
+            "key": "measure",
+            "options": ["temperature", "humidity"]
+          }
+        ],
+        "variables": [
+          {
+            "key": "sensor",
+            "type": "string"
+          },
+          {
+            "key": "sensor_name",
+            "type": "string"
+          },
+          {
+            "key": "sensor_id",
+            "type": "string"
+          },
+          {
+            "key": "measure",
+            "type": "string"
+          },
+          {
+            "key": "measure_label",
+            "type": "string"
+          },
+          {
+            "key": "value",
+            "type": "number"
+          },
+          {
+            "key": "unit",
+            "type": "string"
+          },
+          {
+            "key": "alert_min",
+            "type": "number"
+          },
+          {
+            "key": "alert_max",
+            "type": "number"
+          },
+          {
+            "key": "previous_side",
+            "type": "string"
+          },
+          {
+            "key": "minutes_outside",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "key": "sensor_silent",
+        "fields": [
+          {
+            "key": "sensor",
+            "options": []
+          }
+        ],
+        "variables": [
+          {
+            "key": "sensor",
+            "type": "string"
+          },
+          {
+            "key": "sensor_name",
+            "type": "string"
+          },
+          {
+            "key": "sensor_id",
+            "type": "string"
+          },
+          {
+            "key": "minutes_without_data",
+            "type": "number"
+          },
+          {
+            "key": "last_sample_at",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "sensor_back",
+        "fields": [
+          {
+            "key": "sensor",
+            "options": []
+          }
+        ],
+        "variables": [
+          {
+            "key": "sensor",
+            "type": "string"
+          },
+          {
+            "key": "sensor_name",
+            "type": "string"
+          },
+          {
+            "key": "sensor_id",
+            "type": "string"
+          },
+          {
+            "key": "minutes_without_data",
+            "type": "number"
+          },
+          {
+            "key": "last_sample_at",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "gateway_disconnected",
+        "fields": [
+          {
+            "key": "gateway",
+            "options": []
+          }
+        ],
+        "variables": [
+          {
+            "key": "gateway",
+            "type": "string"
+          },
+          {
+            "key": "gateway_name",
+            "type": "string"
+          },
+          {
+            "key": "last_seen_at",
+            "type": "string"
+          },
+          {
+            "key": "minutes_since_seen",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "key": "gateway_reconnected",
+        "fields": [
+          {
+            "key": "gateway",
+            "options": []
+          }
+        ],
+        "variables": [
+          {
+            "key": "gateway",
+            "type": "string"
+          },
+          {
+            "key": "gateway_name",
+            "type": "string"
+          },
+          {
+            "key": "last_seen_at",
+            "type": "string"
+          },
+          {
+            "key": "minutes_offline",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "key": "access_refused",
+        "fields": [],
+        "variables": [
+          {
+            "key": "reason",
+            "type": "string"
+          },
+          {
+            "key": "message",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "scene_actions": [
+      {
+        "key": "get_sensor",
+        "fields": ["sensor"],
+        "outputs": [
+          {
+            "key": "sensor_name",
+            "type": "string"
+          },
+          {
+            "key": "temperature",
+            "type": "number"
+          },
+          {
+            "key": "humidity",
+            "type": "number"
+          },
+          {
+            "key": "dewpoint",
+            "type": "number"
+          },
+          {
+            "key": "pressure",
+            "type": "number"
+          },
+          {
+            "key": "vpd",
+            "type": "number"
+          },
+          {
+            "key": "battery_voltage",
+            "type": "number"
+          },
+          {
+            "key": "signal",
+            "type": "number"
+          },
+          {
+            "key": "minutes_since_sample",
+            "type": "number"
+          },
+          {
+            "key": "is_silent",
+            "type": "boolean"
+          },
+          {
+            "key": "temperature_unit",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "get_history",
+        "fields": ["sensor", "hours"],
+        "outputs": [
+          {
+            "key": "sensor_name",
+            "type": "string"
+          },
+          {
+            "key": "sample_count",
+            "type": "number"
+          },
+          {
+            "key": "temperature_min",
+            "type": "number"
+          },
+          {
+            "key": "temperature_max",
+            "type": "number"
+          },
+          {
+            "key": "temperature_avg",
+            "type": "number"
+          },
+          {
+            "key": "humidity_min",
+            "type": "number"
+          },
+          {
+            "key": "humidity_max",
+            "type": "number"
+          },
+          {
+            "key": "humidity_avg",
+            "type": "number"
+          },
+          {
+            "key": "temperature_unit",
+            "type": "string"
+          },
+          {
+            "key": "truncated",
+            "type": "boolean"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+}
