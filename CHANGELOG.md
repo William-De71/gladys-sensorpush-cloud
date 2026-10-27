@@ -5,7 +5,7 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
-## [0.1.0] - unreleased
+## [0.1.0] - 2026-10-27
 
 ### Added
 
@@ -15,3 +15,5 @@ each release from the Conventional Commits: do not edit it by hand.
 - **widgets:** every sensor at a glance with the alerts first and the gateways; one sensor with its measures, a 24-hour chart, its alert range, battery voltage and signal, in the units of each user
 - **configuration:** e-mail address and password with a guide, sample interval, delay before a sensor is silent, units of the scenes, language, "Test the connection" and "Diagnostic" buttons
 - **i18n:** English, French, German and Spanish for the manifest, the runtime texts, the documentation and the README
+
+[0.1.0]: https://github.com/William-De71/gladys-sensorpush-cloud/releases/tag/v0.1.0
